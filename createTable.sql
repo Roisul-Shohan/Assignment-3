@@ -25,7 +25,7 @@ CREATE TABLE IF NOT EXISTS Matches (
     match_id SERIAL PRIMARY KEY,
     fixture VARCHAR(150) NOT NULL,
     tournament_category VARCHAR(80) NOT NULL,
-    base_ticket_price INT NOT NULL CHECK (base_ticket_price >=0),
+    base_ticket_price DECIMAL(10,2) NOT NULL CHECK (base_ticket_price >=0),
     match_status VARCHAR(50) NOT NULL CHECK (match_status in ('Available', 'Selling Fast', 'Sold Out', 'Postponed'))
 );
 
@@ -42,7 +42,7 @@ CREATE TABLE Bookings (
                         ON UPDATE CASCADE,
     seat_number VARCHAR(10),
     payment_status VARCHAR(20) CHECK(payment_status in ('Pending', 'Confirmed', 'Cancelled', 'Refunded')),
-    total_cost INT NOT NULL CHECK (total_cost >= 0),
+    total_cost DECIMAL(10,2) NOT NULL CHECK (total_cost >= 0),
 
     CONSTRAINT unique_match_seat UNIQUE (match_id, seat_number)
     
